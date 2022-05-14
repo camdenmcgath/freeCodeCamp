@@ -57,16 +57,6 @@ class Category:
         return returnstr
 
 
-# tests for Category class methods
-clothing = Category("Clothing")
-food = Category("Food")
-food.deposit(1000, "initial deposit")
-food.withdrawal(10.15, "grocieries")
-food.withdrawal(15.89, "restaurant and more food")
-food.transfer(clothing, 50)
-print(food)
-
-
 def create_spend_chart(categories):
     withdrawals = []
     total_spent = 0
