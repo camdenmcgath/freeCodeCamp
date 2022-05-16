@@ -8,7 +8,7 @@ class Category:
     def deposit(self, amount, description=""):
         self.ledger.append({"amount": abs(amount), "description": description})
 
-    def withdrawal(self, amount, description=""):
+    def withdraw(self, amount, description=""):
         if self.check_funds(amount) == False:
             print("Failure")
             return False
@@ -23,7 +23,7 @@ class Category:
             balance += i["amount"]
         return balance
 
-    def transfer(self, Category, amount):
+    def transfer(self, amount, Category):
         if self.check_funds(amount) == False:
             return False
         else:
@@ -62,20 +62,56 @@ def create_spend_chart(categories):
     total_spent = 0
     for cat in categories:
         withdrawal_total = 0
-        for trans in cat.ledger():
+        for trans in cat.ledger:
             if trans["amount"] < 0:
                 withdrawal_total += trans["amount"]
         withdrawals.append(withdrawal_total)
         total_spent += withdrawal_total
 
-    percentages = [((x / total_spent) * 100) // 10 for x in withdrawals]
-    # TODO build bar graph format
-    # TODO build an array of size ll and fill with 'o's and spaces
-    # use loop to append bar graph data to bar_chart
-    # use range(0,len(categories)) to find column number
-    # similar method for category name list, characters from end to start (spaces included)
-    # also use loop to print out until longest name has been printed
-
+    percentages = [((x / total_spent) * 100) for x in withdrawals]
     bar_chart = "Percentage spent by category\n"
+    # generate y axis and bar part of chart
+    for y_val in range(100, -10, -10):
+        bar_chart += str(y_val).rjust(3, " ") + "|"
+        for percent in percentages:
+            if percent > y_val:
+                bar_chart += " o "
+            else:
+                bar_chart += " " * 3
+        bar_chart += "\n"
+    # generate x axis
+    bar_chart += " " * 4
+    for category in categories:
+        bar_chart += "---"
+    bar_chart += "-\n"
+    # print category names under x-axis and respective 'o' bars
+    longest_category = max(len(category.name) for category in categories)
+    for letter in range(longest_category):
+        bar_chart += " " * 4
+        for category in categories:
+            if letter < len(category.name):
+                bar_chart += " " + category.name[letter] + " "
+            else:
+                bar_chart += " " * 3
 
+        bar_chart += "\n"
     return bar_chart
+
+
+food = Category("Food")
+food.deposit(1000, "initial deposit")
+food.withdraw(10.15, "groceries")
+food.withdraw(15.89, "restaurant and more food for dessert")
+print(food.get_balance())
+clothing = Category("Clothing")
+food.transfer(50, clothing)
+clothing.withdraw(25.55)
+clothing.withdraw(100)
+auto = Category("Auto")
+auto.deposit(1000, "initial deposit")
+auto.withdraw(15)
+
+print(food)
+print(clothing)
+
+print(create_spend_chart([food, clothing, auto]))
