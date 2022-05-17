@@ -78,7 +78,7 @@ def create_spend_chart(categories):
                 bar_chart += " o "
             else:
                 bar_chart += " " * 3
-        bar_chart += "\n"
+        bar_chart += " \n"
     # generate x axis
     bar_chart += " " * 4
     for category in categories:
@@ -94,24 +94,6 @@ def create_spend_chart(categories):
             else:
                 bar_chart += " " * 3
 
-        bar_chart += "\n"
+        bar_chart += " \n"
+    bar_chart = bar_chart.rstrip() + " " * 2
     return bar_chart
-
-
-food = Category("Food")
-food.deposit(1000, "initial deposit")
-food.withdraw(10.15, "groceries")
-food.withdraw(15.89, "restaurant and more food for dessert")
-print(food.get_balance())
-clothing = Category("Clothing")
-food.transfer(50, clothing)
-clothing.withdraw(25.55)
-clothing.withdraw(100)
-auto = Category("Auto")
-auto.deposit(1000, "initial deposit")
-auto.withdraw(15)
-
-print(food)
-print(clothing)
-
-print(create_spend_chart([food, clothing, auto]))
