@@ -4,4 +4,4 @@ Repo containing code for each of the freeCodeCamp certifications I have worked o
 ## Certification Status
 Below are the certifications I have worked on or am currently working on. Completed certifications are marked with a checked box. 
 
-- [x] Scientific Computing with Python
+- [x] [Scientific Computing with Python] (https://www.freecodecamp.org/learn/scientific-computing-with-python/)
