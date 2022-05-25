@@ -1,2 +1,2 @@
 # freeCodeCamp
-Projects for the freeCodeCamp certifications
+Repo containing code for each of the freeCodeCamp certifications I have worked on or completed.
